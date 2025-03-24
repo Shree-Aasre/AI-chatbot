@@ -90,7 +90,7 @@ function Chatbot() {
       />
       <button onClick={() => sendMessage(input)} className="mt-2 p-2 bg-neon">Send</button>
       <button onClick={stopSpeaking} className="mt-2 p-2 bg-red-500">Stop Speaking</button>
-      <button onClick={handleVoiceRecognition} className="mt-2 p-2 bg-green-500">Start Listening</button>
+      <button onClick={handleVoiceRecognition} className="mt-2 p-2 bg-green-500">Listening</button>
     </div>
   );
 }
