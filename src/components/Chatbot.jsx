@@ -74,9 +74,14 @@ function Chatbot() {
     );
   };
 
+  const clearChat = () => {
+    setMessages([]);
+    console.log('Chat cleared.');
+  };
+  
   return (
     <div className="p-4 bg-black text-white">
-      <div className="h-80 overflow-auto">
+      <div className="h-[72vh] overflow-auto">
         {messages.map((msg, index) => (
           <p key={index} className={msg.sender === 'user' ? 'text-right' : 'text-left'}>
             {msg.text}
@@ -88,9 +93,13 @@ function Chatbot() {
         onChange={(e) => setInput(e.target.value)}
         className="w-full p-2 mt-2 text-white border-2 border-amber-50 rounded-2xl"
       />
-      <button onClick={() => sendMessage(input)} className="mt-2 p-2 bg-neon">Send</button>
-      <button onClick={stopSpeaking} className="mt-2 p-2 bg-red-500">Stop Speaking</button>
-      <button onClick={handleVoiceRecognition} className="mt-2 p-2 bg-green-500">Listening</button>
+      <div className='flex justify-evenly '>
+      <button onClick={() => sendMessage(input)} className=" bg-gray-200 border-5 border-red-500 text-black mt-2 p-2 bg-neon rounded-xl">Send</button>
+      <button onClick={stopSpeaking} className="mt-2 p-2 bg-red-500 rounded-xl">Stop Speaking</button>
+      <button onClick={handleVoiceRecognition} className="mt-2 p-2 bg-green-500 rounded-xl">listen</button>
+      <button onClick={clearChat} className="mt-2 p-2 bg-gray-500 rounded-xl">Clear Chat</button>
+      </div>
+      
     </div>
   );
 }
