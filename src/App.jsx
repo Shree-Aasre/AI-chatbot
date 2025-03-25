@@ -6,17 +6,17 @@ import Chatbot from './components/Chatbot';
 
 function App() {
   return (
-    <div className="h-screen flex flex-col justify-between bg-red-400 text-white">
-      <Header />
+    <div className="h-screen flex flex-col justify-between bg-black text-white">
+      
       <div className="flex-1 flex flex-col md:flex-row">
+        <div className="flex-1">
+        <Chatbot />
+        </div>
         <div className="flex-1">
           <AvatarScene />
         </div>
-        <div className="flex-1">
-          <Chatbot />
-        </div>
       </div>
-      <Footer />
+      
     </div>
   );
 }

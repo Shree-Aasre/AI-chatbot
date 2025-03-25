@@ -3,17 +3,18 @@ import { OrbitControls, useGLTF } from '@react-three/drei';
 
 function Avatar() {
   const { scene } = useGLTF('/avatar.glb');
-  return <primitive object={scene} scale={1.5} />;
+  return <primitive object={scene} scale={1} />;
 }
 
 function AvatarScene() {
   return (
-    <Canvas camera={{ position: [0, 2, 5] }}>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[0, 5, 5]} />
-      <Avatar />
-      <OrbitControls />
-    </Canvas>
+    <video
+        className="relative top-0 left-0 w-full h-full object-cover"
+        src="/robo.mp4"
+        autoPlay
+        loop
+        muted
+      />
   );
 }
 
