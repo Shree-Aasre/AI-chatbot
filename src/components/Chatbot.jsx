@@ -36,37 +36,40 @@ function Chatbot() {
 
     try {
       const botReply = await getChatResponse(text);
-  
+
       // Remove "Bot is typing..." and add real response
       setMessages((prev) =>
         prev.filter((msg) => !msg.typing).concat({ text: botReply, sender: "bot" })
       );
-  
+
       speakText(botReply); // Speak the bot’s response
     } catch (error) {
       console.error("Error getting bot response:", error);
-      
+
       setMessages((prev) =>
         prev.filter((msg) => !msg.typing).concat({ text: "Sorry, I couldn't respond.", sender: "bot" })
       );
     }
-  
+
     setInput(""); // Clear input field
-  
+
   };
 
   const handleVoiceStart = () => {
-    setIsListening(true);
-    startListening(
-      (transcript) => {
-        sendMessage(transcript);
-        setIsListening(false);
-      },
-      (error) => {
-        console.error("Recognition Error:", error);
-        setIsListening(false);
-      }
-    );
+    if (!isListening) {
+      setIsListening(true);
+      startListening(
+        (transcript) => {
+          sendMessage(transcript);
+          setIsListening(false);
+        },
+        (error) => {
+          console.error("Recognition Error:", error);
+          setIsListening(false);
+        },
+        true //Enable continous listning
+      );
+    }
   };
 
   const handleVoiceStop = () => {
@@ -122,7 +125,9 @@ function Chatbot() {
 
           <Tippy content="mic">
             <button
-              onClick={handleVoiceStart}
+              onPointerDown={handleVoiceStart}  // Start listening on press
+              onPointerUp={handleVoiceStop}    // Stop listening when released
+              onPointerLeave={handleVoiceStop} // Stop if mouse leaves button
               className="p-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition"
               disabled={isListening}
             >
