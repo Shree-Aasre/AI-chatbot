@@ -30,12 +30,29 @@ function Chatbot() {
     const userMessage = { text, sender: "user" };
     setMessages((prev) => [...prev, userMessage]);
 
-    const botReply = await getChatResponse(text);
-    speakText(botReply);
-    const botMessage = { text: botReply, sender: "bot" };
+    // Show "Bot is typing..."
+    const typingMessage = { text: "Bot is typing...", sender: "bot", typing: true };
+    setMessages((prev) => [...prev, typingMessage]);
 
-    setMessages((prev) => [...prev, botMessage]);
-    setInput("");
+    try {
+      const botReply = await getChatResponse(text);
+  
+      // Remove "Bot is typing..." and add real response
+      setMessages((prev) =>
+        prev.filter((msg) => !msg.typing).concat({ text: botReply, sender: "bot" })
+      );
+  
+      speakText(botReply); // Speak the bot’s response
+    } catch (error) {
+      console.error("Error getting bot response:", error);
+      
+      setMessages((prev) =>
+        prev.filter((msg) => !msg.typing).concat({ text: "Sorry, I couldn't respond.", sender: "bot" })
+      );
+    }
+  
+    setInput(""); // Clear input field
+  
   };
 
   const handleVoiceStart = () => {
@@ -71,9 +88,9 @@ function Chatbot() {
         <h2 className="text-center text-4xl font-bold mb-4 underline bg-gradient-to-b from-blue-100 to-purple-500 bg-clip-text text-transparent">
           AI Voice Assistance
         </h2>
-       
 
-{isTextMode ? (
+
+        {isTextMode ? (
           <div className="flex-1 overflow-auto p-4">
             {messages.map((msg, index) => (
               <motion.div
@@ -117,6 +134,11 @@ function Chatbot() {
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  sendMessage(input)
+                }
+              }}
               className="flex-1 p-2 text-black rounded-lg outline-none bg-white shadow-inner focus:ring-2 focus:ring-cyan-400"
               placeholder="Ask me ..."
             />
