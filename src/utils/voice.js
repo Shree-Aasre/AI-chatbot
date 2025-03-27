@@ -44,15 +44,15 @@
 
 
 
-export const speakText = (text) => {
-  if (!window.speechSynthesis) {
+export const speakText = (text) => { //Allows the function to be imported and used in other files, Function that converts text to speech, text comes from chatbot.jsx
+  if (!window.speechSynthesis) { // Built-in Web Speech API that handles text-to-speech
     console.error("Speech synthesis is not supported in this browser.");
     return;
   }
 
-  const utterance = new SpeechSynthesisUtterance(text);
+  const utterance = new SpeechSynthesisUtterance(text); // Object representing the text to be spoken. & (Text) The input provided by the user for speech synthesis.
   utterance.lang = "en-US";
-  utterance.rate = 1;
+  utterance.rate = 1;//Controls the speed of speech
   utterance.pitch = 1;
   utterance.volume = 1;
 
