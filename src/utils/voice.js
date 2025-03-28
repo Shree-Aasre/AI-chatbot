@@ -10,10 +10,8 @@ export const speakText = (text) => {
   utterance.rate = 1;
   utterance.pitch = 1;
   utterance.volume = 1;
-
   utterance.onstart = () => console.log("Speaking:", text);
   utterance.onend = () => console.log("Speech finished.");
-
   window.speechSynthesis.speak(utterance);
 };
 

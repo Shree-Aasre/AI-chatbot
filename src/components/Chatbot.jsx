@@ -14,6 +14,8 @@ function Chatbot() {
   const [input, setInput] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [isTextMode, setIsTextMode] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+
 
   useEffect(() => {
     const welcomeMessage = "Welcome! How can I assist you today?";
@@ -117,13 +119,18 @@ function Chatbot() {
           <Tippy content={isTextMode ? "Only Voice" : "With Text"}>
             <button
               onClick={toggleMode}
-              className="p-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition"
+              className=" bg-transparent text-white rounded-full hover:scale-125 transition"
             >
-              {isTextMode ? "Only Voice" : "With Text"}
+              <img
+                src={isTextMode ? "ov.gif" : "/quote.gif"}
+                alt=""
+                className="size-12 object-fit rounded-full"
+              />
+              
             </button>
           </Tippy>
 
-          <Tippy content="mic">
+          {/* <Tippy content="mic">
             <button
               onPointerDown={handleVoiceStart}  // Start listening on press
               onPointerUp={handleVoiceStop}    // Stop listening when released
@@ -132,6 +139,24 @@ function Chatbot() {
               disabled={isListening}
             >
               <Mic size={20} />
+            </button>
+          </Tippy> */}
+
+          <Tippy content="mic">
+            <button
+              onPointerDown={handleVoiceStart}
+              onPointerUp={handleVoiceStop}
+              onPointerLeave={handleVoiceStop}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              className=" bg-transparent text-white rounded-full hover:bg-cyan-600 hover:scale-125 transition"
+              disabled={isListening}
+            >
+              <img
+                src={isHovered ? "/m.gif" : "/mi.gif"}
+                alt="Mic"
+                className="size-12 object-fit rounded-full"
+              />
             </button>
           </Tippy>
 
@@ -165,18 +190,26 @@ function Chatbot() {
           <Tippy content="clearchat">
             <button
               onClick={clearChat}
-              className="p-3 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition"
+              className=" bg-gray-500 text-white rounded-full hover:scale-125 transition"
             >
-              <Trash size={20} />
+               <img
+                src="/bin.gif"
+                alt="Silent"
+                className="size-12 object-fit rounded-full"
+              />
             </button>
           </Tippy>
 
           <Tippy content="Mute">
             <button
               onClick={stopSpeaking}
-              className="p-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition"
+              className="  text-white rounded-full hover:scale-125 transition"
             >
-              <VolumeX size={20} />
+              <img
+                src="/noa.gif"
+                alt="Silent"
+                className="size-12 object-fit rounded-full"
+              />
             </button>
           </Tippy>
         </div>
