@@ -13,6 +13,7 @@ function Chatbot() {
   const [isListening, setIsListening] = useState(false);
   const [isTextMode, setIsTextMode] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
 
   useEffect(() => {
@@ -70,6 +71,7 @@ function Chatbot() {
         true //Enable continous listning
       );
     }
+   
   };
 
   const handleVoiceStop = () => {
@@ -148,7 +150,7 @@ function Chatbot() {
             : "0px 0px 8px rgba(0, 0, 0 , 0.2)",
         }}
         whileTap={{
-          scale: 0.9,
+          scale: isMobile ? 2 : 0.9, // Scale to 200% on Mobile
           rotate: 360,
           transition: { duration: 0.4, ease: "easeInOut" }
         }}
