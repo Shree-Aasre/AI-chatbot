@@ -88,9 +88,11 @@ function Chatbot() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-3xl h-full p-4 md:p-6 bg-opacity-10 backdrop-blur-md bg-white/10 rounded-2xl border border-cyan-400 shadow-lg flex flex-col justify-between"
       >
-        <h2 className="text-center text-2xl font-bold mb-4 underline bg-gradient-to-b from-blue-100 to-purple-500 bg-clip-text text-transparent">
-          AI Voice Assistance
-        </h2>
+       <h2 className="text-center text-xl md:text-4xl font-bold mb-4 underline bg-gradient-to-r from-pink-400 via-purple-400 to-purple-700 bg-clip-text text-transparent animate-gradient drop-shadow-lg">
+  AI Voice Assistance
+</h2>
+
+
 
 
         {isTextMode ? (
@@ -136,14 +138,10 @@ function Chatbot() {
               onPointerLeave={handleVoiceStop}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className=" bg-transparent text-white rounded-full hover:bg-cyan-600 hover:scale-125 transition"
+              className=" bg-transparent text-white rounded-full hover:bg-cyan-500  hover:scale-150 transition"
               disabled={isListening}
             >
-              <img
-                src={isHovered ? "/m.gif" : "/mi.gif"}
-                alt="Mic"
-                className="size-12 object-contain rounded-full"
-              />
+            <Mic size={32} color="black" />
             </button>
           </Tippy>
 

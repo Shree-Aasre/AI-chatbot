@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const HomePage = () => {
   const bubblesRef = useRef([]);
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate(); // Initialize navigate function 
 
   useEffect(() => {
     bubblesRef.current.forEach((bubble, index) => {
