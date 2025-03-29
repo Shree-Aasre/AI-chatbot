@@ -131,19 +131,32 @@ function Chatbot() {
             </button>
           </Tippy>
 
-          <Tippy content="mic">
-            <button
-              onPointerDown={handleVoiceStart}
-              onPointerUp={handleVoiceStop}
-              onPointerLeave={handleVoiceStop}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              className=" bg-transparent text-white rounded-full hover:bg-cyan-500  hover:scale-150 transition"
-              disabled={isListening}
-            >
-            <Mic size={32} color="black" />
-            </button>
-          </Tippy>
+          <Tippy content="Mic">
+      <motion.button
+        onPointerDown={handleVoiceStart}
+        onPointerUp={handleVoiceStop}
+        onPointerLeave={handleVoiceStop}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        disabled={isListening}
+        className="text-white border-2 border-black rounded-full p-3"
+        initial={{ scale: 1 }}
+        animate={{
+          scale: isHovered ? 1.2 : 1,
+          boxShadow: isHovered
+            ? "0px 0px 20px rgba(0, 255, 255, 0.2)"
+            : "0px 0px 8px rgba(0, 0, 0 , 0.2)",
+        }}
+        whileTap={{
+          scale: 0.9,
+          rotate: 360,
+          transition: { duration: 0.4, ease: "easeInOut" }
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+      >
+        <Mic size={20} color="black" />
+      </motion.button>
+    </Tippy>
 
           {isTextMode && (
             <input
