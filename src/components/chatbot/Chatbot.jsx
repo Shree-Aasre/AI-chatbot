@@ -160,8 +160,8 @@ function Chatbot() {
               <img
                 src={isTextMode ? "ov.gif" : "/quote.gif"}
                 alt=""
-                className="size-12 object-contain rounded-full"
-              />
+                className="size-12 object-contain rounded-full" 
+              /> 
               
             </button>
           </Tippy>

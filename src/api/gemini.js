@@ -10,7 +10,10 @@ export const getChatResponse = async (message) => { // messsage coming from innp
   
   try {
     const response = await axios.post(GEMINI_API_URL, { //sends a POST request to the Gemini API.
-      contents: [{ parts: [{ text: message }] }], //object contains the user's message, formatted as required by Gemini API.
+      contents: [{ parts: [{ text: `  user ask anything you do not say..... like I am currently running on a computer system, processing your
+         request and generating a response. Essentially, I'm using my programming and knowledge to 
+         understand what you're asking and formulate a helpful answer. You could say I'm working to 
+         be a helpful and informative AI assistant!  this you are the english teacher and story teler user can talk anything you cal reply like a normal human ${message} ` }] }], //object contains the user's message, formatted as required by Gemini API.
     });
 
     console.log('Full API Response:', response.data); //prints response from api
