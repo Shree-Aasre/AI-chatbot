@@ -114,7 +114,7 @@ function Chatbot() {
             Your browser does not support the video tag.
           </video>
         )}
-        <div className="flex items-center justify-between flex-wrap gap-2 mt-4">
+        <div className="flex items-center justify-between flex-wrap  mb-2 gap-2 mt-4">
           <Tippy content={isTextMode ? "Only Voice" : "With Text"}>
             <button
               onClick={toggleMode}
