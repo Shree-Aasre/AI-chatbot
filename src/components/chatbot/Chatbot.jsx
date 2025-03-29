@@ -13,8 +13,6 @@ function Chatbot() {
   const [isListening, setIsListening] = useState(false);
   const [isTextMode, setIsTextMode] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  
 
 
   useEffect(() => {
@@ -72,7 +70,6 @@ function Chatbot() {
         true //Enable continous listning
       );
     }
-   
   };
 
   const handleVoiceStop = () => {
@@ -147,11 +144,14 @@ function Chatbot() {
         animate={{
           scale: isHovered ? 1.2 : 1,
           boxShadow: isHovered
-            ? "0px 0px 20px rgba(0, 255, 255, 0.2)"
-            : "0px 0px 8px rgba(0, 0, 0 , 0.2)",
+            ? "0px 0px 20px rgba(0, 255, 255, 0.8)"
+            : "0px 0px 8px rgba(0, 0, 0, 0.2)",
         }}
-        whileTap={isMobile ? { scale: 2,rotate: 360, transition: { duration: 0.4, ease: "easeInOut" }} : { scale: 0.9 }}
-       
+        whileTap={{
+          scale: 0.9,
+          rotate: 360,
+          transition: { duration: 0.4, ease: "easeInOut" }
+        }}
         transition={{ type: "spring", stiffness: 300, damping: 15 }}
       >
         <Mic size={20} color="black" />
