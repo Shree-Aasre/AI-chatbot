@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useRef, useState, useEffect } from "react";
 import { Send, Mic, VolumeX, Trash } from "lucide-react";
 import { getChatResponse } from "../../api/gemini";
 import { speakText, stopSpeaking, startListening, stopListening } from "../../utils/voice";
@@ -6,6 +6,34 @@ import { motion } from "framer-motion";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import ReactMarkdown from 'react-markdown';
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls, useGLTF } from "@react-three/drei";
+import { AnimationMixer, LoopRepeat } from "three";
+
+function RobotModel() {
+  const { scene, animations } = useGLTF("/robot_playground.glb");
+  const mixer = useRef(null);
+
+  useEffect(() => {
+    if (animations.length) {
+      mixer.current = new AnimationMixer(scene);
+      animations.forEach((clip) => {
+        const action = mixer.current.clipAction(clip);
+        action.setLoop(LoopRepeat, Infinity);
+        action.play();
+      });
+    }
+  }, [animations, scene]);
+
+  useFrame((_, delta) => {
+    mixer.current?.update(delta);
+  });
+
+  return (
+    <primitive object={scene} scale={[1.5, 1.5, 1.5]} position={[0, -1, 0]} />
+  ); // Increased size
+}
+
 
 function Chatbot() {
   const [messages, setMessages] = useState([]);
@@ -82,13 +110,13 @@ function Chatbot() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-white text-white p-4 md:p-6">
+    <div className=" ddidddd flex  justify-center items-center h-screen bg-gray-300 text-white p-4 md:p-6">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-3xl h-full p-4 md:p-6 bg-opacity-10 backdrop-blur-md bg-white/10 rounded-2xl border border-cyan-400 shadow-lg flex flex-col justify-between"
       >
-       <h2 className="text-center text-xl md:text-4xl font-bold mb-4 underline bg-gradient-to-r from-pink-400 via-purple-400 to-purple-700 bg-clip-text text-transparent animate-gradient drop-shadow-lg">
+       <h2 className="text-center text-xl md:text-4xl font-bold mb-4 underline bg-gradient-to-r from-pink-600 via-purple-500 to-purple-900 bg-clip-text text-transparent animate-gradient drop-shadow-lg">
   AI Voice Assistance
 </h2>
 
@@ -111,10 +139,17 @@ function Chatbot() {
             ))}
           </div>
         ) : (
-          <video className="flex-1 w-full h-full object-cover" autoPlay loop muted>
-            <source src="/ai.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <div className="h-100vh flex flex-col justify-center items-center bg-gradient-to-b from-gray-300 to-white"
+        
+        >
+          <Canvas style={{ height: "70vh", width: "100vw " }}>
+            <ambientLight intensity={0.8} />
+            <directionalLight position={[10, 10, 5]} intensity={1.5} />
+            <RobotModel />
+            <OrbitControls />
+          </Canvas>
+        </div>
+
         )}
         <div className="flex items-center justify-between flex-wrap  mb-12 gap-2 mt-4">
           <Tippy content={isTextMode ? "Only Voice" : "With Text"}>
@@ -201,7 +236,7 @@ function Chatbot() {
           <Tippy content="Mute">
             <button
               onClick={stopSpeaking}
-              className="  text-white rounded-full hover:scale-125 transition"
+              className="  text-white rounded-full hover:scale-125 transition "
             >
               <img
                 src="/noa.gif"
