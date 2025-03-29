@@ -14,6 +14,7 @@ function Chatbot() {
   const [isTextMode, setIsTextMode] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  
 
 
   useEffect(() => {
@@ -149,11 +150,8 @@ function Chatbot() {
             ? "0px 0px 20px rgba(0, 255, 255, 0.2)"
             : "0px 0px 8px rgba(0, 0, 0 , 0.2)",
         }}
-        whileTap={{
-          scale: isMobile ? 2 : 0.9, // Scale to 200% on Mobile
-          rotate: 360,
-          transition: { duration: 0.4, ease: "easeInOut" }
-        }}
+        whileTap={isMobile ? { scale: 2,rotate: 360, transition: { duration: 0.4, ease: "easeInOut" }} : { scale: 0.9 }}
+       
         transition={{ type: "spring", stiffness: 300, damping: 15 }}
       >
         <Mic size={20} color="black" />
